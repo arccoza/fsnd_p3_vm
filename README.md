@@ -9,4 +9,7 @@ To prepare this project either:
 - Start vagrant VM with `vagrant up` from the terminal.
 - Login to the VM with `vagrant ssh`.
 - Navigate to `/vagrant/tournament`.
+- Run `psql`.
+- From the psql command line, type `\i tournament.sql`.
+- `\q` to exit the psql command line.
 - Run `python tournament_test.py`.
