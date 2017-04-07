@@ -112,7 +112,7 @@ def countPlayers(fixture='default'):
             '''
 
     for count in qr(query, fixture=fixture):
-        print(count[0])
+        # print(count[0])
         ret = count[0]
 
     return ret
