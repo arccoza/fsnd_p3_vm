@@ -13,6 +13,9 @@ def connect():
 
 
 def qr(query, **kwargs):
+    '''Read from the database with a query and keyword args,
+    yield resulting rows.
+    '''
     db = connect()
     c = db.cursor()
     # print(c.mogrify(query, kwargs))
@@ -25,18 +28,23 @@ def qr(query, **kwargs):
 
 
 def qw(query, **kwargs):
+    '''Write to the database with a query and keyword args,
+    yield num of affected rows.
+    '''
     db = connect()
     c = db.cursor()
-    print(c.mogrify(query, kwargs))
+    # print(c.mogrify(query, kwargs))
     c.execute(query, kwargs)
-    print(c.rowcount)
+    # print(c.rowcount)
     yield c.rowcount
     db.commit()
     db.close()
 
 
 def deleteMatches(fixture=None):
-    """Remove all the match records from the database."""
+    """Remove all the match records, for a fixture or everything,
+    from the database.
+    """
     ret = None
 
     if fixture:
@@ -61,7 +69,9 @@ def deleteMatches(fixture=None):
 
 
 def deletePlayers(fixture=None):
-    """Remove all the player records from the database."""
+    """Remove all the player records, for a fixture or everything,
+    from the database.
+    """
     ret = None
 
     if fixture:
@@ -86,7 +96,9 @@ def deletePlayers(fixture=None):
 
 
 def countPlayers(fixture='default'):
-    """Returns the number of players currently registered."""
+    """Returns the number of players currently registered,
+    for a fixture or the default fixture.
+    """
     ret = None
 
     query = '''
@@ -107,7 +119,8 @@ def countPlayers(fixture='default'):
 
 
 def registerPlayer(name, fixture=None):
-    """Adds a player to the tournament database.
+    """Adds a player to the tournament database,
+    for a fixture or the default fixture.
 
     The database assigns a unique serial id number for the player.  (This
     should be handled by your SQL database schema, not in your Python code.)
@@ -139,7 +152,8 @@ def registerPlayer(name, fixture=None):
 
 
 def playerStandings(fixture='default'):
-    """Returns a list of the players and their win records, sorted by wins.
+    """Returns a list of the players and their win records,
+    for a fixture or the default fixture, sorted by wins.
 
     The first entry in the list should be the player in first place, or a player
     tied for first place if there is currently a tie.
@@ -183,7 +197,8 @@ def playerStandings(fixture='default'):
 
 
 def reportMatch(winner, loser, fixture='default'):
-    """Records the outcome of a single match between two players.
+    """Records the outcome of a single match between two players,
+    for a fixture or the default fixture.
 
     Args:
       winner:  the id number of the player who won
@@ -214,7 +229,8 @@ def reportMatch(winner, loser, fixture='default'):
 
 
 def swissPairings(fixture='default'):
-    """Returns a list of pairs of players for the next round of a match.
+    """Returns a list of pairs of players for the next round of a match,
+    for a fixture or the default fixture.
 
     Assuming that there are an even number of players registered, each player
     appears exactly once in the pairings.  Each player is paired with another
@@ -232,13 +248,6 @@ def swissPairings(fixture='default'):
     ret = imap(lambda a, b: a + b, standings, standings)
     ret = [pair for pair in ret]
     return ret
-    # odd = (a for i, a in enumerate(standings, start=1) if i % 2 == 1)
-    # even = (b for i, b in enumerate(standings, start=1) if i % 2 == 0)
-    # [for a in odd for b in even]
-
-    # query = '''
-    #         WITH mat as (SELECT p.id, p.name, m.)
-    #         '''
 
 # deletePlayers(fixture='default')
 # registerPlayer(name='Zim', fixture='grandslam-2017')
