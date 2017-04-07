@@ -4,6 +4,7 @@
 #
 
 import psycopg2
+from itertools import izip, islice, imap
 
 
 def connect():
@@ -173,7 +174,7 @@ def playerStandings(fixture='default'):
             LEFT JOIN matches as m
             ON m.winner = p.id OR m.loser = p.id
             GROUP BY p.id, f.name
-            ORDER BY wins;
+            ORDER BY wins DESC, matches DESC;
             '''
 
     ret = [row for row in qr(query, fixture=fixture)]
@@ -189,7 +190,7 @@ def reportMatch(winner, loser, fixture='default'):
       loser:  the id number of the player who lost
     """
     ret = None
-    mpr = countPlayers(fixture=fixture) / 2
+    mpr = countPlayers(fixture=fixture) / 2  # mpr = matches per round
 
     query = '''
             INSERT INTO matches (winner, loser, round, fid)
@@ -212,7 +213,7 @@ def reportMatch(winner, loser, fixture='default'):
     return ret
 
 
-def swissPairings():
+def swissPairings(fixture='default'):
     """Returns a list of pairs of players for the next round of a match.
 
     Assuming that there are an even number of players registered, each player
@@ -227,8 +228,20 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    standings = ((a[0], a[1]) for a in playerStandings(fixture=fixture))
+    ret = imap(lambda a, b: a + b, standings, standings)
+    ret = [pair for pair in ret]
+    return ret
+    # odd = (a for i, a in enumerate(standings, start=1) if i % 2 == 1)
+    # even = (b for i, b in enumerate(standings, start=1) if i % 2 == 0)
+    # [for a in odd for b in even]
+
+    # query = '''
+    #         WITH mat as (SELECT p.id, p.name, m.)
+    #         '''
 
 # deletePlayers(fixture='default')
 # registerPlayer(name='Zim', fixture='grandslam-2017')
 # print(playerStandings())
-# reportMatch(32, 34)
+# reportMatch(12, 13)
+# print(swissPairings())
