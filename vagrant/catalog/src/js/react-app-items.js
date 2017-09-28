@@ -79,7 +79,7 @@ export default class Items extends React.Component {
 
   // Fetches data from the server.
   fetch({mode, type, id}) {
-    print('........................fetching')
+    // print('........................fetching')
     var modify = this.modify
     type = this.types[type]  // Use `this.types` for singular to plural conversion for the REST API.
     var obj = {}
@@ -125,8 +125,6 @@ export default class Items extends React.Component {
     var modify = this.modify
     var {location, history} = this.props
 
-    print(curCategory, curItem, curImage)
-
     if (curItem) {
       return Promise.resolve(curImage.blob ? api.add('files', null, curImage, 'form') : [{id: curImage.id}])
       .catch(([data, resp]) => {
@@ -146,7 +144,6 @@ export default class Items extends React.Component {
         else
           return api.add('items', null, curItem)
       })
-      // .catch(([err, resp]) => print(err))
       .then(([data, resp]) => {
         curItem.id = data.id
         var path = location.pathname.split('/')
@@ -179,8 +176,6 @@ export default class Items extends React.Component {
 
     if (curItem && curItem.id) {
       return api.rem('items', curItem.id)
-      // .then(([data, resp]) => print(data))
-      // .catch(([err, resp]) => print(err))
     }
 
     if (curCategory && curCategory.id) {
@@ -212,21 +207,21 @@ export default class Items extends React.Component {
   // Tries to fetch data with the initial props.
   componentDidMount() {
     var state = this.state
-    print('......................mounted')
+    // print('......................mounted')
     this.fetch(this.props)
     .then(([data]) => this.setCurObjs(this.props.id, data))
   }
 
   // Fetches data whenver the view changes and there are new props.
   componentWillReceiveProps(nextProps) {
-    print('......................props')
+    // print('......................props')
     var state = this.state
     var {mode, type, id} = this.props
 
     if (nextProps.type == type && nextProps.id == id)
       return
 
-    print('......................loading')
+    // print('......................loading')
 
     this.fetch(nextProps)
     .then(([data]) => this.setCurObjs(nextProps.id, data))
@@ -234,7 +229,7 @@ export default class Items extends React.Component {
 
   // Check for and do actions, such as save and remove.
   componentDidUpdate(prevProps, prevState) {
-    print('......................updated')
+    // print('......................updated')
     var modify = this.modify
     var state = this.state
     var {history, pub} = prevProps
@@ -268,7 +263,7 @@ export default class Items extends React.Component {
   }
 
   render() {
-    print('......................rendering')
+    // print('......................rendering')
     var content = []
     var setField = (...args) => ev => this.modify(ev.target.value, ...args)
     var updField = (fn) => ({target: {value, files}}) => this.setState(fn({value, files}))
@@ -276,7 +271,7 @@ export default class Items extends React.Component {
     var singleItem = false
     var editCategory = false
     var {mode, type, id, history, user} = this.props
-    print(mode, type, id, history, user)
+    // print(mode, type, id, history, user)
 
     if (type == 'item') {
       if (this.state.items.length == 1 && id != null)
@@ -293,12 +288,10 @@ export default class Items extends React.Component {
 
 
     if (singleItem) {
-      print('singleItem', mode, type, id, this.state.items[0])
       content = [Item({...this.state, allCategories: this.props.categories, setField,
         updField, modify, mode, user})]
     }
     else if (editCategory) {
-      print('editCategory')
       content = [Category({...this.state, setField, updField, modify, mode, history, user})]
     }
     else if (mode == 'view') {
@@ -322,7 +315,6 @@ export default class Items extends React.Component {
       ]
     }
     else {
-      print('Not found', mode, type, id, this.state.items[0])
       content = [h('h2', {style: {textAlign: 'center'}}, 'Not found')]
     }
 

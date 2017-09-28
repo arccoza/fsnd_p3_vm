@@ -6,7 +6,7 @@ You can skip this and view an online version, linked in the View section.
 
 * Make sure [vagrant](https://www.vagrantup.com/) is installed.
 
-* Clone this repo with `git clone git@github.com:arccoza/fsnd_p4_catalog.git catalog` into your FSND VM.
+* Clone this repo with `git clone git@github.com:arccoza/fsnd_p4_catalog.git catalog` into your FSND VM `catalog` directory (must be a newer, Ubuntu 16.04 version FSND VM).
 
 * Or clone my FSND VM with this project included: `git clone git@github.com:arccoza/fsnd_p3_vm.git`.
 
@@ -22,7 +22,7 @@ You can skip this and view an online version, linked in the View section.
 
 ## View
 
-* On your host machine open: [http://localhost:5000/](http://localhost:5000/)
+* On your host machine open: [http://localhost:5000/](http://localhost:5000/). You must use `localhost` and not `127.0.0.1` or `0.0.0.0` for oauth to work.
 
 * Or you can view an online version [here](http://188.166.100.114.xip.io/).
 

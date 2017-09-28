@@ -23,7 +23,6 @@ function Text({value, children=[]}) {
 
 export function Category({items, curCategory, errCategory, isBusy,
   setField, updField, modify, mode, history, user}) {
-  // print(curItem, curImage)
   var modeInv = {
     'edit': 'view',
     'view': 'edit',
