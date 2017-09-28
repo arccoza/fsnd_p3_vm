@@ -1,0 +1,43 @@
+{
+  "name": "catalog",
+  "version": "1.0.0",
+  "description": "Place your catalog project in this directory.",
+  "main": "app.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arccoza/fsnd_p4_catalog.git"
+  },
+  "author": "Adrien de Pierres",
+  "license": "UNLICENSED",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/arccoza/fsnd_p4_catalog/issues"
+  },
+  "homepage": "https://github.com/arccoza/fsnd_p4_catalog#readme",
+  "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "material-ui": "^0.19.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1",
+    "react-tap-event-plugin": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "fly": "^2.0.6",
+    "fly-clear": "^1.0.1",
+    "fly-esnext": "^2.0.1",
+    "fly-rollup": "^2.1.0",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-json": "^2.1.1",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-replace": "^1.1.1"
+  }
+}
