@@ -174,7 +174,6 @@ class App extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    print('app...............................................props')
     this.fetch()
   }
 

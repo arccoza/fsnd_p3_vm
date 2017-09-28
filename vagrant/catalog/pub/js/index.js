@@ -49298,7 +49298,6 @@ function Category$1(_ref2) {
       history = _ref2.history,
       user = _ref2.user;
 
-  // print(curItem, curImage)
   var modeInv = {
     'edit': 'view',
     'view': 'edit'
@@ -49448,7 +49447,7 @@ var Items = function (_React$Component) {
           type = _ref.type,
           id = _ref.id;
 
-      print$4('........................fetching');
+      // print('........................fetching')
       var modify$$1 = this.modify;
       type = this.types[type]; // Use `this.types` for singular to plural conversion for the REST API.
       var obj = {};
@@ -49531,8 +49530,6 @@ var Items = function (_React$Component) {
           history = _props.history;
 
 
-      print$4(curCategory, curItem, curImage);
-
       if (curItem) {
         return Promise.resolve(curImage.blob ? api.add('files', null, curImage, 'form') : [{ id: curImage.id }]).catch(function (_ref15) {
           var _ref16 = slicedToArray(_ref15, 2),
@@ -49550,9 +49547,7 @@ var Items = function (_React$Component) {
           curImage.id = data.id;
 
           if (curItem.id != null) return api.set('items', curItem.id, curItem);else return api.add('items', null, curItem);
-        })
-        // .catch(([err, resp]) => print(err))
-        .then(function (_ref19) {
+        }).then(function (_ref19) {
           var _ref20 = slicedToArray(_ref19, 2),
               data = _ref20[0],
               resp = _ref20[1];
@@ -49595,8 +49590,6 @@ var Items = function (_React$Component) {
 
       if (curItem && curItem.id) {
         return api.rem('items', curItem.id);
-        // .then(([data, resp]) => print(data))
-        // .catch(([err, resp]) => print(err))
       }
 
       if (curCategory && curCategory.id) {
@@ -49635,7 +49628,7 @@ var Items = function (_React$Component) {
       var _this3 = this;
 
       var state = this.state;
-      print$4('......................mounted');
+      // print('......................mounted')
       this.fetch(this.props).then(function (_ref24) {
         var _ref25 = slicedToArray(_ref24, 1),
             data = _ref25[0];
@@ -49651,7 +49644,7 @@ var Items = function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this4 = this;
 
-      print$4('......................props');
+      // print('......................props')
       var state = this.state;
       var _props2 = this.props,
           mode = _props2.mode,
@@ -49661,7 +49654,7 @@ var Items = function (_React$Component) {
 
       if (nextProps.type == type && nextProps.id == id) return;
 
-      print$4('......................loading');
+      // print('......................loading')
 
       this.fetch(nextProps).then(function (_ref26) {
         var _ref27 = slicedToArray(_ref26, 1),
@@ -49676,7 +49669,7 @@ var Items = function (_React$Component) {
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
-      print$4('......................updated');
+      // print('......................updated')
       var modify$$1 = this.modify;
       var state = this.state;
       var history = prevProps.history,
@@ -49713,7 +49706,7 @@ var Items = function (_React$Component) {
     value: function render() {
       var _this5 = this;
 
-      print$4('......................rendering');
+      // print('......................rendering')
       var content = [];
       var setField = function setField() {
         for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -49741,8 +49734,7 @@ var Items = function (_React$Component) {
           id = _props3.id,
           history = _props3.history,
           user = _props3.user;
-
-      print$4(mode, type, id, history, user);
+      // print(mode, type, id, history, user)
 
       if (type == 'item') {
         if (this.state.items.length == 1 && id != null) singleItem = true;else if (mode == 'edit' && id == null) singleItem = true;
@@ -49751,11 +49743,9 @@ var Items = function (_React$Component) {
       }
 
       if (singleItem) {
-        print$4('singleItem', mode, type, id, this.state.items[0]);
         content = [Item$1(_extends$12({}, this.state, { allCategories: this.props.categories, setField: setField,
           updField: updField, modify: modify$$1, mode: mode, user: user }))];
       } else if (editCategory) {
-        print$4('editCategory');
         content = [Category$1(_extends$12({}, this.state, { setField: setField, updField: updField, modify: modify$$1, mode: mode, history: history, user: user }))];
       } else if (mode == 'view') {
         content = [h('h2', null, 'View Items ' + (this.state.curCategory.title ? 'in ' + this.state.curCategory.title : '')), h(GridList_2, { cellHeight: 180, cols: 4 }, this.state.items.map(function (item) {
@@ -49768,7 +49758,6 @@ var Items = function (_React$Component) {
           }, h('img', { src: '/api/files/' + item.image + '/blob' }));
         }))];
       } else {
-        print$4('Not found', mode, type, id, this.state.items[0]);
         content = [h('h2', { style: { textAlign: 'center' } }, 'Not found')];
       }
 
@@ -49910,7 +49899,6 @@ var App = function (_React$Component) {
   createClass$4(App, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      print$1('app...............................................props');
       this.fetch();
     }
   }, {
